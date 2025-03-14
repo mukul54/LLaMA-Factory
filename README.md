@@ -565,7 +565,7 @@ See [examples/README.md](examples/README.md) for advanced usage (including distr
 >
 > Read [FAQs](https://github.com/hiyouga/LLaMA-Factory/issues/4614) first if you encounter any problems.
 
-### Fine-Tuning with LLaMA Board GUI (powered by [Gradio](https://github.com/gradio-app/gradio))
+# Fine-Tuning with GUI on our data(powered by [Gradio](https://github.com/gradio-app/gradio))
 
 ```bash
 # Launch the WebUI locally
