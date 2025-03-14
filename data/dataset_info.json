@@ -39,7 +39,21 @@
     }
   },
   "healthcare_activity": {
-    "file_name": "healthcare_activity/activity_dataset.json",
+    "file_name": "healthcare_activity/activity_dataset_train.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages",
+      "videos": "videos"
+    },
+    "tags": {
+      "role_tag": "role",
+      "content_tag": "content",
+      "user_tag": "user",
+      "assistant_tag": "assistant"
+    }
+  },
+  "healthcare_activity_test": {
+    "file_name": "healthcare_activity/activity_dataset_test.json",
     "formatting": "sharegpt",
     "columns": {
       "messages": "messages",

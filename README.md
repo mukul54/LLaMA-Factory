@@ -599,6 +599,38 @@ This fork includes a custom dataset for healthcare activity recognition using vi
    # Run the dataset preparation script with default settings
    python prepare_dataset.py
    
+   # To prepare dataset with specific parameters
+   python prepare_dataset.py \
+     --data_dir /path/to/video/clips \
+     --output_file path/to/output.json \
+     --split train \
+     --absolute_paths true
+   ```
+
+2. **Evaluating Model Performance**:
+   After running predictions using the WebUI, you can analyze the model's performance using the evaluation script:
+   ```bash
+   # Run the evaluation script on prediction results
+   python scripts/evaluate_predictions.py \
+     --predictions /path/to/generated_predictions.jsonl \
+     --test-data /path/to/test_dataset.json \
+     --output-dir ./evaluation_results
+   ```
+   
+   The script will:
+   - Calculate overall and per-class accuracy
+   - Generate a confusion matrix visualization
+   - Create a detailed JSON report of all predictions
+   - Identify and list examples of prediction errors
+   
+   Example usage after WebUI evaluation:
+   ```bash
+   python scripts/evaluate_predictions.py \
+     --predictions ./saves/Qwen2.5-VL-3B-Instruct/lora/eval_yyyy-mm-dd-hh-mm-ss/generated_predictions.jsonl \
+     --test-data ./data/medical_activity_data/activity_dataset_test.json \
+     --output-dir ./evaluation_results
+   ```
+   
    # Or specify custom parameters
    python prepare_dataset.py \
      --data_dir "/path/to/your/video/data" \
