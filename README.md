@@ -597,6 +597,7 @@ This fork includes a custom dataset for healthcare activity recognition using vi
 1. **Preparing the Dataset**:
    ```bash
    # Run the dataset preparation script with default settings
+   cd LLaMA-Factory/scripts
    python prepare_dataset.py
    
    # To prepare dataset with specific parameters
