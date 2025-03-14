@@ -38,6 +38,20 @@
       "assistant_tag": "assistant"
     }
   },
+  "healthcare_activity": {
+    "file_name": "healthcare_activity/activity_dataset.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages",
+      "videos": "videos"
+    },
+    "tags": {
+      "role_tag": "role",
+      "content_tag": "content",
+      "user_tag": "user",
+      "assistant_tag": "assistant"
+    }
+  },
   "mllm_audio_demo": {
     "file_name": "mllm_audio_demo.json",
     "formatting": "sharegpt",

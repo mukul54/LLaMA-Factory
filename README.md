@@ -568,8 +568,60 @@ See [examples/README.md](examples/README.md) for advanced usage (including distr
 ### Fine-Tuning with LLaMA Board GUI (powered by [Gradio](https://github.com/gradio-app/gradio))
 
 ```bash
+# Launch the WebUI locally
 llamafactory-cli webui
+
+# Launch the WebUI with a public link
+GRADIO_SHARE=1 llamafactory-cli webui
 ```
+
+#### WebUI Usage Tips
+
+1. **Using LoRA Fine-tuning**:
+   - When using LoRA fine-tuning, make sure to leave the **Checkpoint Path** field empty when training a new adapter.
+   - The error "adapter_config.json not found" usually occurs when the WebUI tries to load an adapter from the base model path.
+
+2. **Setting up for Multimodal Models (like Qwen-VL)**:
+   - Select the appropriate model template from the dropdown menu (e.g., `qwen2_vl` for Qwen2.5-VL)
+   - Make sure your dataset includes absolute paths to images or videos (prepare_dataset.py handles this conversion)
+
+3. **Common WebUI Issues**:
+   - If you encounter "ValueError: Can't load adapter config.json" with LoRA, ensure your checkpoint path is empty
+   - For video or image models, ensure that your dataset JSON files contain **full absolute paths** to media files (WebUI does not have a media path field)
+   - Use the "Preview" button to verify your configuration before starting training
+
+#### Healthcare Activity Dataset
+
+This fork includes a custom dataset for healthcare activity recognition using video data:
+
+1. **Preparing the Dataset**:
+   ```bash
+   # Run the dataset preparation script with default settings
+   python prepare_dataset.py
+   
+   # Or specify custom parameters
+   python prepare_dataset.py \
+     --data_dir "/path/to/your/video/data" \
+     --output_file "/path/to/output/activity_dataset.json" \
+     --train_ratio 0.8 \
+     --max_per_class 100
+   ```
+   
+   **Command-line Arguments**:
+   - `--data_dir`: Directory containing activity video folders (default: "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/")
+   - `--output_file`: Output JSON file path (default: "/home/mukul.ranjan/projects/video-vlm/LLaMA-Factory/data/healthcare_activity/activity_dataset.json")
+   - `--train_ratio`: Ratio of train:test split (default: 0.8)
+   - `--max_per_class`: Maximum samples per class, useful for balancing the dataset (default: unlimited)
+   
+   This will create dataset files with the following features:
+   - Converts video paths to absolute paths for WebUI compatibility
+   - Creates train/test splits of the dataset (saved as "*_train.json" and "*_test.json")
+   - Formats data for multimodal training with Qwen2.5-VL
+
+2. **Using with WebUI**:
+   - Select "healthcare_activity" from the dataset dropdown
+   - Choose the appropriate model template (e.g., `qwen2_vl` for Qwen2.5-VL)
+   - Configure LoRA parameters as needed
 
 ### Build Docker
 
