@@ -177,7 +177,7 @@ if __name__ == "__main__":
                        default="/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/",
                        help="Directory containing activity video folders")
     parser.add_argument("--output_file", type=str, 
-                       default="/home/mukul.ranjan/projects/video-vlm/LLaMA-Factory/data/healthcare_activity/activity_dataset.json",
+                       default="/home/mukul.ranjan/projects/video-vlm/LLaMA-Factory/data/healthcare_activity/activity_dataset_new.json",
                        help="Output JSON file path")
     parser.add_argument("--train_ratio", type=float, default=0.8,
                        help="Ratio of train:test split")

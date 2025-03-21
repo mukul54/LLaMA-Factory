@@ -1,0 +1,68 @@
+# Configuration for fine-tuning Qwen 2.5 VL on enhanced healthcare activity recognition dataset
+# This configuration uses the enhanced dataset with detailed explanatory responses
+
+### model
+model_name_or_path: Qwen/Qwen2.5-VL-3B-Instruct
+image_max_pixels: 262144
+video_max_pixels: 65536  # Increased for better video resolution
+trust_remote_code: true
+
+### logging
+report_to: wandb
+logging_steps: 10
+run_name: qwen25vl-healthcare-activity-enhanced
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+freeze_vision_tower: true  # Freeze vision tower to save memory
+freeze_multi_modal_projector: false  # Unfreeze projector for better cross-modal alignment
+freeze_language_model: true  # Freeze language model when using LoRA
+
+### dataset
+dataset_dir: /home/mukul.ranjan/projects/video-vlm/LLaMA-Factory/data
+dataset: healthcare_activity
+dataset_name: activity_dataset_enhanced  # Using the enhanced dataset with detailed responses
+template: qwen2_vl
+media_dir: /l/users/mukul.ranjan/video_data/activity_clips/activity_clips
+cutoff_len: 2048
+max_samples: 3000  # Limit samples to avoid overfitting
+overwrite_cache: true
+preprocessing_num_workers: 8
+dataloader_num_workers: 4
+
+### output
+output_dir: /home/mukul.ranjan/projects/video-vlm/LLaMA-Factory/outputs/qwen25vl_healthcare_enhanced
+
+### training stability
+gradient_checkpointing: true
+gradient_accumulation_steps: 4  # Increased to reduce memory pressure
+max_grad_norm: 0.3  # Prevent large gradients
+per_device_train_batch_size: 1
+evaluation_strategy: steps
+eval_steps: 200
+save_strategy: steps
+save_steps: 500
+save_total_limit: 3
+ddp_find_unused_parameters: false
+logging_steps: 10
+low_cpu_mem_usage: true  # Optimize memory usage
+
+### optimization
+optim: adamw_torch
+learning_rate: 5e-5
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+weight_decay: 0.01
+max_steps: -1
+num_train_epochs: 3
+fp16: true
+
+### miscellaneous
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: false
