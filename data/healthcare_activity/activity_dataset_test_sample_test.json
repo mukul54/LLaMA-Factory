@@ -1,0 +1,152 @@
+[
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "The video shows activity 4: Patient admission. I can identify this based on the specific actions and setting visible in the healthcare environment."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/patient_admitted/677bd799c58f014ef000e4e3.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "This is activity 4: Patient admission. The video depicts the characteristic steps and equipment associated with this healthcare procedure."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/patient_admitted/676e7c05ca9b03d7ddf2da4d.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "The video shows activity 5: Patient discharge. I can identify this based on the specific actions and setting visible in the healthcare environment."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/patient_discharged/6769519010826546c53c1b9b.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "After reviewing the video, I can confirm this is activity 5: Patient discharge. The workflow and interactions shown are typical of this healthcare process."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/patient_discharged/676d29d5ca9b03d7ddf2d8c3.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on my analysis, this is activity 2: Bed cleaning/arrangement. The healthcare professional's actions and the clinical context clearly indicate this procedure."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/bed_cleaned/676a715efdb8f2369d1ca9d8.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on my analysis, this is activity 2: Bed cleaning/arrangement. The healthcare professional's actions and the clinical context clearly indicate this procedure."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/bed_cleaned/677bd07dc58f014ef000e4c3.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "This is activity 3: Blood pressure checking. The video depicts the characteristic steps and equipment associated with this healthcare procedure."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/bp_checked/676d09338ca8a707cd109b8b.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on my analysis, this is activity 3: Blood pressure checking. The healthcare professional's actions and the clinical context clearly indicate this procedure."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/bp_checked/6762a5e469749ec29793789b.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "After reviewing the video, I can confirm this is activity 1: Arranging/checking drip bottle. The workflow and interactions shown are typical of this healthcare process."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/arranged_drip_bottle/6763b88169749ec2979378da.mp4"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "<video>Identify the healthcare activity shown in this video. Select from: 1. Arranging/checking drip bottle, 2. Bed cleaning/arrangement, 3. Blood pressure checking, 4. Patient admission, 5. Patient discharge. Explain your answer."
+      },
+      {
+        "role": "assistant",
+        "content": "Based on my analysis, this is activity 1: Arranging/checking drip bottle. The healthcare professional's actions and the clinical context clearly indicate this procedure."
+      }
+    ],
+    "videos": [
+      "/l/users/mukul.ranjan/video_data/activity_clips/activity_clips/arranged_drip_bottle/67601d232a692327dcfedc96.mp4"
+    ]
+  }
+]

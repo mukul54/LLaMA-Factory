@@ -342,4 +342,4 @@ def launch_ui():
 
 if __name__ == "__main__":
     app = launch_ui()
-    app.launch(share=False)
+    app.launch(share=True)
