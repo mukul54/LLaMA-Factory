@@ -15,7 +15,7 @@
 from typing import TYPE_CHECKING
 
 from ...data import TEMPLATES
-from ...extras.constants import METHODS, SUPPORTED_MODELS
+from ...extras.constants import METHODS, SUPPORTED_MODELS, MULTIMODAL_SUPPORTED_MODELS
 from ...extras.packages import is_gradio_available
 from ..common import save_config
 from ..control import can_quantize, can_quantize_to, get_model_info, list_checkpoints
@@ -32,8 +32,10 @@ if TYPE_CHECKING:
 def create_top() -> dict[str, "Component"]:
     with gr.Row():
         lang = gr.Dropdown(choices=["en", "ru", "zh", "ko", "ja"], value=None, scale=1)
-        available_models = list(SUPPORTED_MODELS.keys()) + ["Custom"]
-        model_name = gr.Dropdown(choices=available_models, value=None, scale=3)
+        # Filter to only show vision-language models
+        available_models = [model for model in SUPPORTED_MODELS.keys() 
+                           if model in MULTIMODAL_SUPPORTED_MODELS] + ["Custom"]
+        model_name = gr.Dropdown(choices=available_models, value=None, scale=3, label="Vision-Language Model")
         model_path = gr.Textbox(scale=3)
 
     with gr.Row():
