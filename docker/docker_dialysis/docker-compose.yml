@@ -1,0 +1,68 @@
+version: '3.8'
+
+x-podman:
+  cgroup-manager: cgroupfs
+  format: docker
+  network_config:
+    driver: bridge
+    options:
+      com.docker.network.driver.mtu: "1500"
+      disable_ipv6: true
+
+services:
+  llama-factory:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: llama-factory-dialysis
+    container_name: llama-factory-dialysis
+    
+    # GPU configuration for NVIDIA hardware access
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    
+    # Environment variables
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - GRADIO_SHARE=1
+    
+    # Volume mappings - persistent storage across container restarts
+    volumes:
+      - ../../data:/app/data
+      - ../../models:/app/models
+      - ../../outputs:/app/outputs
+      - ../../hf_cache:/root/.cache/huggingface
+    
+    # Port mappings
+    ports:
+      - "7860:7860"  # Gradio WebUI port
+      - "8000:8000"  # API service port (if needed)
+    
+    # Performance settings
+    ipc: host
+    shm_size: "16gb"
+    tty: true
+    stdin_open: true
+    
+    # Network settings to avoid IPv6 issues
+    network_mode: "bridge"
+    dns_opt:
+      - use-vc
+      - no-tld-query
+    
+    # Security settings for rootless mode
+    security_opt:
+      - seccomp=unconfined
+    
+    # Use the entrypoint script with all functionality
+    # entrypoint is defined in Dockerfile, so we don't override it here
+    command: webui
+    
+    # Reliability settings
+    restart: unless-stopped
