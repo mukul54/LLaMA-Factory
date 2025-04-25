@@ -6,6 +6,8 @@ This repository contains tools and configurations for fine-tuning the Qwen 2.5 V
 
 - [Overview](#overview)
 - [Setup](#setup)
+  - [Native Installation](#native-installation)
+  - [Docker Setup](#docker-setup)
 - [Dataset Preparation](#dataset-preparation)
   - [Using the Gradio App](#using-the-gradio-app)
   - [Using the Command Line](#using-the-command-line)
@@ -29,7 +31,8 @@ The fine-tuning approach includes both LoRA (Low-Rank Adaptation) for efficient 
 
 ## Setup
 
-**Environment Setup**:
+### Native Installation
+
 ```bash
 git clone https://github.com/mukul54/LLaMA-Factory.git
 cd LLaMA-Factory
@@ -37,6 +40,61 @@ pip install -e .
 ```
 
 This will install LLaMA-Factory and all its dependencies. No additional dependency installation is required.
+
+### Docker Setup
+
+We provide Docker support for easy deployment and isolation. The Docker container includes all necessary dependencies and tools.
+
+#### Building and Running the Docker Container
+
+1. Navigate to the Docker directory:
+   ```bash
+   cd LLaMA-Factory/docker/docker_dialysis
+   ```
+
+2. Run the provided utility script:
+   ```bash
+   ./run.sh
+   ```
+
+3. Select the operation you want to perform:
+   - `webui`: Launch the LLaMA Factory web interface
+   - `dataweb`: Launch the dataset preparation web interface
+   - `prepare`: Prepare dataset from command line
+   - `train`: Train a model
+   - `evaluate`: Evaluate a fine-tuned model
+   - `build`: Rebuild the Docker image
+
+#### Docker Usage Notes
+
+- The container uses NVIDIA GPU acceleration and requires NVIDIA Container Toolkit
+- Data persistence is handled through volume mounts to `../../data`, `../../models`, and `../../outputs` relative to the Docker directory
+- The web interfaces are exposed on port 7860 (or automatically selected alternative if 7860 is in use)
+
+#### Manual Docker Commands
+
+If you prefer to run Docker commands directly:
+
+```bash
+# Build the image
+podman build --format docker --cgroup-manager=cgroupfs -t llama-factory-health .
+
+# Run the WebUI
+podman run --rm --cgroup-manager=cgroupfs --gpus all -p 7860:7860 \
+  -v "$(pwd)/../../data:/app/data" \
+  -v "$(pwd)/../../models:/app/models" \
+  -v "$(pwd)/../../outputs:/app/outputs" \
+  -e GRADIO_SHARE=1 \
+  --entrypoint llamafactory-cli llama-factory-health webui
+
+# Run the dataset preparation web interface
+podman run --rm --cgroup-manager=cgroupfs --gpus all -p 7860:7860 \
+  -v "$(pwd)/../../data:/app/data" \
+  -v "$(pwd)/../../models:/app/models" \
+  -v "$(pwd)/../../outputs:/app/outputs" \
+  -e GRADIO_SHARE=1 \
+  llama-factory-health dataweb
+```
 
 ## Dataset Preparation
 
@@ -46,8 +104,13 @@ We provide a Gradio-based web application for easy dataset preparation:
 
 1. Launch the Gradio app:
    ```bash
+   # If using native installation
    cd scripts
    python healthcare_activity/healthcare_dataset_creator.py
+   
+   # If using Docker
+   ./run.sh
+   # Select option 2 (dataweb)
    ```
 
 2. In the web interface:
@@ -61,12 +124,18 @@ We provide a Gradio-based web application for easy dataset preparation:
 Alternatively, you can use the command line script:
 
 ```bash
+# If using native installation
 cd scripts
 python healthcare_activity/prepare_dataset_enhanced.py \
   --data_dir "/path/to/video/clips/" \
   --output_file "/path/to/output/activity_dataset.json" \
   --train_ratio 0.8 \
   --max_per_class 400
+
+# If using Docker
+./run.sh
+# Select option 3 (prepare)
+# Enter the requested parameters when prompted
 ```
 
 Options:
@@ -82,11 +151,15 @@ Options:
 
 1. Launch the LLaMA-Factory WebUI:
    ```bash
-   # Launch the WebUI locally
+   # If using native installation
    llamafactory-cli webui
 
-   # Launch the WebUI with a public link
+   # With a public link
    GRADIO_SHARE=1 llamafactory-cli webui
+   
+   # If using Docker
+   ./run.sh
+   # Select option 1 (webui)
    ```
 
 2. In the WebUI:
@@ -122,7 +195,7 @@ This fork includes a custom dataset for healthcare activity recognition using vi
 
 1. **Preparing the Dataset**:
    ```bash
-   # Run the dataset preparation script with default settings
+   # If using native installation
    cd LLaMA-Factory/scripts
    python healthcare_activity/prepare_dataset_enhanced.py
    
@@ -132,6 +205,10 @@ This fork includes a custom dataset for healthcare activity recognition using vi
      --output_file "/path/to/output/activity_dataset.json" \
      --train_ratio 0.8 \
      --max_per_class 100
+     
+   # If using Docker
+   ./run.sh
+   # Select option 3 (prepare)
    ```
    
    **Command-line Arguments**:
@@ -148,14 +225,19 @@ This fork includes a custom dataset for healthcare activity recognition using vi
 2. **Evaluating Model Performance**:
    After running predictions using the WebUI, you can analyze the model's performance using the evaluation script:
    ```bash
-   # Run the evaluation script on prediction results
+   # If using native installation
    python scripts/healthcare_activity/evaluate_finetuned_model.py \
      --model_path "/path/to/finetuned/model" \
      --test_data "/path/to/test_dataset.json"
+   
+   # If using Docker
+   ./run.sh
+   # Select option 5 (evaluate)
    ```
    
    Example usage after WebUI evaluation:
    ```bash
+   # If using native installation
    python scripts/healthcare_activity/evaluate_finetuned_model.py \
      --model_path "./outputs/qwen25vl_healthcare_enhanced" \
      --test_data "./data/healthcare_activity/activity_dataset_enhanced_test.json"
@@ -172,6 +254,7 @@ This fork includes a custom dataset for healthcare activity recognition using vi
 
 2. Run the training script:
    ```bash
+   # If using native installation
    cd LLaMA-Factory
    
    # For LoRA fine-tuning
@@ -192,11 +275,16 @@ This fork includes a custom dataset for healthcare activity recognition using vi
      --gradient_accumulation_steps 4 \
      --learning_rate 5e-5 \
      --num_train_epochs 3
+     
+   # If using Docker
+   ./run.sh
+   # Select option 4 (train)
    ```
 
 Alternatively, you can use a configuration file:
 
 ```bash
+# If using native installation
 CUDA_VISIBLE_DEVICES=0 python src/train_bash.py \
   --config_file examples/healthcare_activity/qwen25vl_activity_finetuning.yaml
 ```
@@ -206,6 +294,7 @@ CUDA_VISIBLE_DEVICES=0 python src/train_bash.py \
 To evaluate your fine-tuned model on the test set:
 
 ```bash
+# If using native installation
 cd LLaMA-Factory
 python src/evaluate_bash.py \
   --model_name_or_path ./output_healthcare \
@@ -213,6 +302,10 @@ python src/evaluate_bash.py \
   --dataset healthcare_activity \
   --dataset_dir ./data \
   --split test
+  
+# If using Docker
+./run.sh
+# Select option 5 (evaluate)
 ```
 
 ## Troubleshooting
@@ -234,6 +327,20 @@ python src/evaluate_bash.py \
 
 - **Problem**: Poor training results with simple numeric responses
   - **Solution**: Use the enhanced dataset creator with detailed explanatory responses to improve model learning
+
+### Docker Issues
+
+- **Problem**: Port conflicts when starting web interfaces
+  - **Solution**: The run.sh script automatically detects port conflicts and selects an alternative port
+
+- **Problem**: Permission errors with port numbers below 1024
+  - **Solution**: Always use port numbers >= 1024 in rootless container environments
+
+- **Problem**: Unable to access mounted volumes
+  - **Solution**: Ensure the data, models, and outputs directories exist at the correct relative paths
+
+- **Problem**: Gradio interface not accessible outside container
+  - **Solution**: Use the GRADIO_SHARE=1 environment variable to enable public URL access
 
 ---
 
